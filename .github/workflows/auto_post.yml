@@ -1,29 +1,28 @@
 name: Threads Auto Post
 on:
   schedule:
-    # 日本時間（JST）から9時間を引いたUTC時間を設定します
-    - cron: '0 22 * * *'  # JST 07:00 (UTC 22:00 前日)
-    - cron: '0 0 * * *'   # JST 09:00 (UTC 00:00)
-    - cron: '0 3 * * *'   # JST 12:00 (UTC 03:00)
-    - cron: '0 10 * * *'  # JST 19:00 (UTC 10:00)
-    - cron: '0 13 * * *'  # JST 22:00 (UTC 13:00)
-  [cite_start]workflow_dispatch: # 手動実行用ボタン [cite: 92]
+    - cron: '0 22 * * *'
+    - cron: '0 0 * * *'
+    - cron: '0 3 * * *'
+    - cron: '0 10 * * *'
+    - cron: '0 13 * * *'
+  workflow_dispatch:
 jobs:
   post:
-    [cite_start]runs-on: ubuntu-latest [cite: 95]
-    timeout-minutes: 5 # 念のための強制終了設定
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - [cite_start]name: リポジトリをチェックアウト [cite: 97]
-        [cite_start]uses: actions/checkout@v3 [cite: 98]
-      - [cite_start]name: Pythonをセットアップ [cite: 99]
-        [cite_start]uses: actions/setup-python@v4 [cite: 100]
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v3
+      - name: Pythonをセットアップ
+        uses: actions/setup-python@v4
         with:
-          [cite_start]python-version: '3.10' [cite: 102]
-      - [cite_start]name: 依存パッケージをインストール [cite: 103]
-        [cite_start]run: pip install -r requirements.txt [cite: 104]
-      - [cite_start]name: 自動投稿を実行 [cite: 105]
+          python-version: '3.10'
+      - name: 依存パッケージをインストール
+        run: pip install -r requirements.txt
+      - name: 自動投稿を実行
         env:
-          [cite_start]OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }} [cite: 107]
-          [cite_start]THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }} [cite: 108]
-          [cite_start]THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }} [cite: 109]
-        [cite_start]run: python post.py [cite: 110]
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          THREADS_ACCESS_TOKEN: ${{ secrets.THREADS_ACCESS_TOKEN }}
+          THREADS_USER_ID: ${{ secrets.THREADS_USER_ID }}
+        run: python post.py

@@ -1,5 +1,4 @@
 name: Threads Auto Post
-
 on:
   schedule:
     - cron: '0 22 * * *'
@@ -8,7 +7,6 @@ on:
     - cron: '0 10 * * *'
     - cron: '0 13 * * *'
   workflow_dispatch:
-
 jobs:
   post:
     runs-on: ubuntu-latest
